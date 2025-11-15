@@ -1,10 +1,12 @@
-import type { Express } from 'express';
+import type { Express, Request, Response } from 'express';
 
 export default function Hello(app: Express) {
-    app.get('/hello', (req, res) => {
-        res.send('Hello World!')
-    });
-    app.get('/', (req, res) => {
-        res.send('Welcome to Full Stack Development!')
-    });
+    const sayHello = (req: Request, res: Response) => {
+        res.send('Hello World!');
+    }
+    const sayWelcome = (req: Request, res: Response) => {
+        res.send('Welcome to Full Stack Development!');
+    }
+    app.get('/hello', sayHello);
+    app.get('/', sayWelcome); 
 }
