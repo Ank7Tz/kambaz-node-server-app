@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { DB, User } from "../Database";
+import { DB, User } from "../Database/index.js";
 export default function UsersDao(db: DB) {
     let { users } = db;
     const createUser = (user: User) => {

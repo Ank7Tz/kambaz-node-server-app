@@ -1,5 +1,5 @@
-import { DB, User } from "../Database";
-import UsersDao from "./Dao";
+import { DB, User } from "../Database/index.js";
+import UsersDao from "./dao.js";
 import { Express, Request, Response } from "express";
 
 declare module 'express-session' {

@@ -1,4 +1,4 @@
-import { Assignment, DB } from "../Database";
+import { Assignment, DB } from "../Database/index.js";
 import { v4 as uuidv4 } from "uuid";
 
 export default function AssignmentsDao(db: DB) {

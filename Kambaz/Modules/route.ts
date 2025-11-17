@@ -1,5 +1,5 @@
 import { DB } from "../Database/index.js";
-import ModulesDao from "../Modules/dao.js";
+import ModulesDao from "./dao";
 import { Express, Request, Response } from "express";
 export default function ModulesRoutes(app: Express, db: DB) {
     const dao = ModulesDao(db);

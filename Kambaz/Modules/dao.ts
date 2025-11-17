@@ -1,4 +1,4 @@
-import { DB, Module } from "../Database";
+import { DB, Module } from "../Database/index.js";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ModulesDao(db: DB) {

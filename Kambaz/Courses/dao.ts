@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Course, DB, Enrollment } from "../Database";
+import { Course, DB, Enrollment } from "../Database/index.js";
 
 export default function CoursesDao(db: DB) {
     function findAllCourses() {
