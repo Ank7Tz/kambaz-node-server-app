@@ -1,6 +1,6 @@
-import { DB } from "../Database/index.js";
+import { DB } from "../Database/index";
 import {Express, Request, Response} from "express";
-import EnrollmentsDao from "./dao.js";
+import EnrollmentsDao from "./dao";
 
 export default function EnrollmentRoute(app: Express, db: DB) {
     const dao = EnrollmentsDao(db);

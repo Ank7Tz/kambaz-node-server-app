@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { DB, Enrollment, User } from "../Database/index.js";
+import { DB, Enrollment, User } from "../Database/index";
 
 export default function EnrollmentsDao(db: DB) {
     const enrollUserInCourse = (userId: string, courseId: string) => {

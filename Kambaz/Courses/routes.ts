@@ -1,6 +1,6 @@
-import { DB } from "../Database/index.js";
-import EnrollmentsDao from "../Enrollments/dao.js";
-import CoursesDao from "./dao.js";
+import { DB } from "../Database/index";
+import EnrollmentsDao from "../Enrollments/dao";
+import CoursesDao from "./dao";
 import { Express, Request, Response } from "express";
 
 export default function CourseRoutes(app: Express, db: DB) {

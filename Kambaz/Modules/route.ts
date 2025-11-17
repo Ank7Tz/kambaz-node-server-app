@@ -1,4 +1,4 @@
-import { DB } from "../Database/index.js";
+import { DB } from "../Database/index";
 import ModulesDao from "./dao";
 import { Express, Request, Response } from "express";
 export default function ModulesRoutes(app: Express, db: DB) {

@@ -1,9 +1,9 @@
 import { Express, Request, Response } from 'express';
-import PathParameter from './PathParameters.js';
-import QueryParameters from './QueryParameters.js';
-import WorkingWithObjects from './WorkingWithObjects.js';
-import ModuleHandler from './ModuleHandler.js';
-import WorkingWithArrays from './WorkingWithArrays.js';
+import PathParameter from './PathParameters';
+import QueryParameters from './QueryParameters';
+import WorkingWithObjects from './WorkingWithObjects';
+import ModuleHandler from './ModuleHandler';
+import WorkingWithArrays from './WorkingWithArrays';
 
 export default function Lab5(app: Express) {
     const welcomeMsg = (req: Request, res: Response) => {

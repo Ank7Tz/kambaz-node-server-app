@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
-import { DB } from "../Database/index.js";
-import AssignmentsDao from "./dao.js";
+import { DB } from "../Database/index";
+import AssignmentsDao from "./dao";
 
 export default function AssignmentsRoutes(app: Express, db: DB) {
     const dao = AssignmentsDao(db);

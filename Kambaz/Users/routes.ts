@@ -1,5 +1,5 @@
-import { DB, User } from "../Database/index.js";
-import UsersDao from "./dao.js";
+import { DB, User } from "../Database/index";
+import UsersDao from "./dao";
 import { Express, Request, Response } from "express";
 
 declare module 'express-session' {
@@ -10,9 +10,19 @@ declare module 'express-session' {
 
 export default function UserRoutes(app: Express, db: DB) {
     const dao = UsersDao(db);
-    const createUser = (req: Request, res: Response) => { };
-    const deleteUser = (req: Request, res: Response) => { };
-    const findAllUsers = (req: Request, res: Response) => { };
+    const createUser = (req: Request, res: Response) => {
+        const newUser = dao.createUser(req.body);
+        res.json(newUser);
+    };
+    const deleteUser = (req: Request, res: Response) => {
+        const userId = req.params.userId;
+        dao.deleteUser(userId);
+        res.sendStatus(204);
+    };
+    const findAllUsers = (req: Request, res: Response) => {
+        const users = dao.findAllUsers();
+        res.json(users);
+    };
     const findUserById = (req: Request, res: Response) => {
         const userId = req.params.userId;
         const user = dao.findUserById(userId);
@@ -41,6 +51,17 @@ export default function UserRoutes(app: Express, db: DB) {
             });
         }
     };
+    const updateUserByFaculty = (req: Request, res: Response) => {
+        const currentUser = req.session["currentUser"];
+        if (!currentUser) {
+            res.sendStatus(401);
+            return;
+        }
+        const userId = req.params.userId;
+        const userUpdates = req.body;
+        dao.updateUser(userId, userUpdates);
+        res.sendStatus(200);
+    }
     const signup = (req: Request, res: Response) => {
         const user = dao.findUserByUsername(req.body.username);
         if (user) {
@@ -82,6 +103,7 @@ export default function UserRoutes(app: Express, db: DB) {
     app.get("/api/users/search/firstName/:firstName", findUsersByFirstName);
     app.get("/api/users/search/userId/:userId", findUserById);
     app.put("/api/users/:userId", updateUser);
+    app.post("/api/users/FacultyControl/:userId", updateUserByFaculty);
     app.delete("/api/users/:userId", deleteUser);
     app.post("/api/users/signup", signup);
     app.post("/api/users/signin", signin);
