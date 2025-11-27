@@ -1,46 +1,31 @@
 import { v4 as uuidv4 } from "uuid";
 import { Course, DB, Enrollment } from "../Database/index";
+import model from "./model";
 
 export default function CoursesDao(db: DB) {
-    function findAllCourses() {
-        return db.courses;
+    async function findAllCourses() {
+        return model.find({}, { name: 1, description: 1, image: 1 });
     }
 
-    function findCoursesForEnrolledUser(userId: string) {
-        const { courses, enrollments } = db;
-        const enrolledCourses = courses.filter((course: Course) =>
-            enrollments.some((enrollment: Enrollment) => enrollment.user === userId && enrollment.course === course._id));
-        return enrolledCourses;
-    }
-
-    function createCourse(course: Course) {
-        const newCourse = { ...course, _id: uuidv4() };
-        db.courses = [...db.courses, newCourse];
-        return newCourse;
+    async function createCourse(course: Course): Promise<Course> {
+        const newCourse = { ...course, _id: uuidv4(), modules: [] };
+        const created = await model.create(newCourse);
+        return created.toObject<Course>();
     }
 
     function deleteCourse(courseId: string) {
-        const { courses, enrollments } = db;
-        db.courses = courses.filter((course) => course._id !== courseId);
-        db.enrollments = enrollments.filter(
-            (enrollment) => enrollment.course !== courseId
-        );
+        return model.deleteOne({ _id: courseId });
     }
 
-    function updateCourse(courseId: string, courseUpdates: Course) {
-        const { courses } = db;
-        const course = courses.find((course) => course._id === courseId);
-        if (!course) {
-            return null;
-        }
-        Object.assign(course, courseUpdates);
-        return course;
+    async function updateCourse(courseId: string, courseUpdates: Course): Promise<Course | null> {
+        await model.updateOne({ _id: courseId }, { $set: courseUpdates });
+        const course = await model.findById(courseId);
+        return course ? course.toObject<Course>() : null;
     }
 
 
     return {
         findAllCourses,
-        findCoursesForEnrolledUser,
         createCourse,
         deleteCourse,
         updateCourse,

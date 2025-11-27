@@ -10,6 +10,14 @@ import CourseRoutes from './Kambaz/Courses/routes';
 import ModulesRoutes from './Kambaz/Modules/route';
 import AssignmentsRoutes from './Kambaz/Assignments/routes';
 import EnrollmentRoute from './Kambaz/Enrollments/route';
+import mongoose from "mongoose";
+
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
+mongoose.connect(CONNECTION_STRING);
+
+mongoose.connection.on("connected", () => {
+    console.log("connected");
+});
 
 const app = express();
 

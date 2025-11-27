@@ -29,13 +29,14 @@ export interface Course {
   credits: number;
   description: string;
   image: string;
+  modules?: Module[];
 }
 
 export interface Module {
   _id: string;
   name: string;
   description?: string;
-  course: string;
+  course?: string;
   lessons?: Lesson[];
   editing?: boolean;
 }
@@ -55,6 +56,10 @@ export interface Enrollment {
   _id: string;
   user: string;
   course: string;
+  grade?: number;
+  letterGrade?: string;
+  enrollmentDate?: Date;
+  status?: "ENROLLED" | "DROPPED" | "COMPLETED";
 }
 
 export interface Lesson {
