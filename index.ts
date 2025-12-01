@@ -33,7 +33,7 @@ const sessionOptions: SessionOptions = {
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI,
+        mongoUrl: CONNECTION_STRING,
         collectionName: 'sessions'
     })
 };
