@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Course, DB, Enrollment } from "../Database/index";
 import model from "./model";
+import enrollmentModel from "../Enrollments/model";
 
 export default function CoursesDao(db: DB) {
     async function findAllCourses() {
@@ -13,7 +14,8 @@ export default function CoursesDao(db: DB) {
         return created.toObject<Course>();
     }
 
-    function deleteCourse(courseId: string) {
+    async function deleteCourse(courseId: string) {
+        await enrollmentModel.deleteMany({course: courseId});
         return model.deleteOne({ _id: courseId });
     }
 
