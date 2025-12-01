@@ -11,6 +11,8 @@ import ModulesRoutes from './Kambaz/Modules/route';
 import AssignmentsRoutes from './Kambaz/Assignments/routes';
 import EnrollmentRoute from './Kambaz/Enrollments/route';
 import mongoose from "mongoose";
+import MongoStore from 'connect-mongo';
+
 
 const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
@@ -29,8 +31,12 @@ app.use(cors({
 const sessionOptions: SessionOptions = {
     secret: process.env.SESSION_SECRET || "kambaz",
     resave: false,
-    saveUninitialized: false
-}
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+        collectionName: 'sessions'
+    })
+};
 
 if (process.env.SERVER_ENV !== "development") {
     sessionOptions.proxy = true;
