@@ -87,4 +87,82 @@ export interface DB {
     users: User[];
 }
 
+export interface Quiz {
+  _id: string;
+
+  title: string;
+  description?: string;
+  course: string;
+  
+  quizType: "Graded Quiz" | "Practice Quiz" | "Graded Survey" | "Ungraded Survey";
+  assignmentGroup: "Quizzes" | "Exams" | "Assignments" | "Project";
+  
+  shuffleAnswers: boolean;
+  timeLimit: number; 
+  multipleAttempts: boolean;
+  howManyAttempts: number;
+  showCorrectAnswers: string;
+  accessCode?: string;
+  oneQuestionAtATime: boolean;
+  webcamRequired: boolean;
+  lockQuestionsAfterAnswering: boolean;
+  
+  dueDate?: Date;
+  availableDate?: Date;
+  untilDate?: Date;
+  
+  published: boolean;
+  
+  points: number;
+}
+
+export interface QuizQuestion {
+  _id: string;
+  
+  quiz: string;
+  course: string;
+  
+  title: string;
+  type: "multiple-choice" | "true-false" | "fill-in-blank";
+  points: number;
+  question: string; 
+  
+  choices?: string[];
+  
+  //For multiple-choice: number 
+  //For true-false: boolean 
+  correctAnswer?: number | boolean;
+  
+  // Fill in Blank Fields
+  possibleAnswers?: string[];
+  
+  isEditing?: boolean;
+}
+
+export interface QuizAnswer {
+  questionId: string;
+  answer: number | boolean | string;
+  isCorrect?: boolean;
+  pointsEarned?: number;
+}
+
+export interface QuizAttempt {
+  _id?: string;
+  
+  quiz: string;
+  student: string;
+  course: string;
+  
+  attemptNumber: number;
+  startedAt: Date;
+  submittedAt?: Date;
+  
+  answers: QuizAnswer[];
+  
+  score?: number;
+  totalPoints?: number;
+  
+  isCompleted?: boolean;
+}
+
 export default { courses, assignments, enrollments, modules, users } as DB;

@@ -1,6 +1,5 @@
 import express from 'express'
 import Hello from './Hello';
-import Lab5 from './Lab5';
 import cors from "cors";
 import UserRoutes from './Kambaz/Users/routes';
 import Database from './Kambaz/Database';
@@ -12,6 +11,7 @@ import AssignmentsRoutes from './Kambaz/Assignments/routes';
 import EnrollmentRoute from './Kambaz/Enrollments/route';
 import mongoose from "mongoose";
 import MongoStore from 'connect-mongo';
+import QuizRoutes from './Kambaz/Quizzes/routes';
 
 
 const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
@@ -50,11 +50,11 @@ app.use(session(sessionOptions));
 
 app.use(express.json());
 Hello(app);
-Lab5(app);
 UserRoutes(app, Database);
 CourseRoutes(app, Database);
 ModulesRoutes(app, Database);
 AssignmentsRoutes(app, Database);
 EnrollmentRoute(app, Database);
+QuizRoutes(app);
 
 app.listen(process.env.PORT || 4000);
